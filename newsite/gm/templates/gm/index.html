@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<body>
+	<head>
+    	<link href="http://s3.amazonaws.com/codecademy-content/courses/ltp/css/shift.css" rel="stylesheet">
+    	{% load staticfiles %}
+		
+    	<link rel="stylesheet" href="gm/main.css">
+    	<style>
+			table, th, td {
+    			border: 1px solid black;
+			}
+			th {
+			    height: 50px;
+
+			}
+			.bacpic {
+	  			background-image:url('http://74211.com/wallpaper/picture_big/Red-Porsche-Car-in-the-Run-Driving-at-Incredible-Speed-is-Good-Looking-Overall-a-Fit-for-Various-Devices-HD-Cars-Wallpaper.jpg');
+
+	  			height: 1200px;
+			}
+			.heading h1{
+				position: relative;
+				left : 600px;
+				top: 60px;
+				font-size: 50px;
+			}
+			.heading h2{
+				position: relative;
+				left : 400px;
+				top: 50px;
+			}
+			.CarInfo table{
+				position: relative;
+				left : 500px;
+				top: -100px;
+				font-style: bold;
+			}
+			.sub {
+				position: relative;
+				left : 575px;
+				top: -90px;
+
+			}
+
+			.CarInfo h2{
+				position: relative;
+				left : 150px;
+				top: 150px;
+				font-style: bold;
+			}
+
+		</style>
+  	</head>
+  	<div class = "bacpic">
+	  	<div class = "heading">
+			<h1>Gas Manager</h1>
+			<h2>Need to fuel gas? Acquire real-time gas price any time, any where.</h2>
+		</div>
+		<div class = "CarInfo">
+			<h2>Input Your Car Information</h2>
+			<form action="{% url 'gm:recordmanager' %}" method="post">
+				<table border='5'>
+					<tr>
+						<th>Choice</th>
+						<th>Company</th>
+				    	<th>Model</th>
+				    	<th>MadeYear</th>
+				    	<th>MPG</th>
+				    	<th>Location</th>
+				 	</tr>
+					{% csrf_token %}
+					{% for car in car_list %}
+						<tr>
+							<td><input type="radio" name="choice" id="choice{{ forloop.counter }}" value="{{ car.id }}" /></td>
+							<label for="choice{{ forloop.counter }}">
+						    <td>{{ car.company }}</td>
+						    <td>{{ car.modeltype }}</td>
+						    <td>{{ car.madeyear }}</td>
+						    <td>{{ car.mpg }}</td>
+						    <td>{{ car.location }}</td>
+						    </label><br />
+						</tr>
+						</label>
+					{% endfor %}
+				</table>
+				<div class = "sub">
+					<input type="submit" name = "add" value="Add" />
+					<input type="submit" name = "edit" value="Edit" />
+					<input type="submit" name = "delete" value="Delete" />
+					<input type="submit" name = "search" value="Search" />
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
+
+
